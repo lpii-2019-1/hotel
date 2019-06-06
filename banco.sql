@@ -71,3 +71,4 @@ CREATE TABLE pagamento (
 
 
 INSERT INTO ocupacaoquarto (idOcupacaoQuarto, disponibilidade) VALUES  (NULL, 'DISPONIVEL'), (NULL, 'OCUPADO');
+INSERT INTO ocupacaoquarto (idOcupacaoQuarto, disponibilidade) VALUES  (NULL, 'DISPONIVEL'), (NULL, 'OCUPADO');

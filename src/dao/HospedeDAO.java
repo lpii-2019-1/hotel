@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import conexao.Conexao;
 import model.Hospede;
+import model.Quarto;
 
 public class HospedeDAO {
 
@@ -34,14 +35,16 @@ public class HospedeDAO {
         }
     }
     
-    public Hospede pesquisaNomeHospede(String nomeHospede) {
+    public ArrayList<Hospede>pesquisaNomeHospede(String nomeHospede) {
         String sql = "SELECT * FROM hospede WHERE nome = ?";
         try {
             stmt = conexao.prepareStatement(sql);
             stmt.setString(1, nomeHospede);
             ResultSet rs = stmt.executeQuery();
-            Hospede hospede = new Hospede();
-            if (rs.next()) {
+            ArrayList<Hospede> nomeHospedes = new ArrayList<Hospede>();
+
+            while (rs.next()) {
+                Hospede hospede = new Hospede();
             	hospede.setIdHospede(rs.getInt("idHospede"));
             	hospede.setNome(rs.getString("nome"));
             	hospede.setCpf(rs.getString("cpf"));
@@ -49,13 +52,15 @@ public class HospedeDAO {
             	hospede.setEndereco(rs.getString("endereco"));
             	hospede.setEmail(rs.getString("email"));
             	hospede.setDataCadastro(rs.getString("dataCadastro"));
+            	nomeHospedes.add(hospede);
             }
             stmt.close();
-            return hospede;
+            return nomeHospedes;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+     
     public Hospede pesquisaCpfHospede(String cpfHospede) {
         String sql = "SELECT * FROM hospede WHERE cpf = ?";
         try {

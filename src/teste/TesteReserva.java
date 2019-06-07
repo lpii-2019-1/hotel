@@ -52,6 +52,20 @@ public class TesteReserva {
 			String cpfHospede = s1.nextLine();
 			h1.setCpf(cpfHospede);
 			
+			ArrayList<Hospede> hospedePesquisado = hospedeDAO.pesquisaNomeHospede(nomeHospede);
+	        for (Hospede h: hospedePesquisado) {
+	            System.out.println("idHospede: " +h.getIdHospede());
+	            System.out.println("Nome: " +h.getNome());
+	            System.out.println("CPF: " +h.getCpf());
+	            System.out.println("Telefone: " +h.getTelefone());
+	            System.out.println("Endereco: " +h.getEndereco());
+	            System.out.println("Email: " +h.getEmail());
+	            System.out.println("Data de Cadastro: " +h.getDataCadastro());
+	            System.out.println("********************************");
+		        }
+	                  
+		  
+				
 			Funcionario f1 = new Funcionario();
 			System.out.println("Nome Funcionario");
 			String nomeFuncionario = s1.nextLine();
@@ -63,14 +77,14 @@ public class TesteReserva {
 			System.out.println("Data de Fim de Ocupacao: ");
 			r1.setFimOcupacao(s1.nextLine());
 			
-			if (hospedeDAO.pesquisaCpfHospede(h1.getCpf()).getIdHospede()== 0) {
-				 hospedeDAO.inserir(h1);
-	         }
+			//if (hospedeDAO.pesquisaCpfHospede(h1.getCpf()).getIdHospede()== 0) {
+				// hospedeDAO.inserir(h1);
+	         //}
 			h1 = hospedeDAO.pesquisaCpfHospede(h1.getCpf());
 			r1.setHospede(h1);
-			if (funcionarioDAO.pesquisaNomeFuncionario(f1.getNome()).getIdFuncionario()== 0) {
-				 funcionarioDAO.inserir(f1);
-	        }
+			//if (funcionarioDAO.pesquisaNomeFuncionario(f1.getNome()).getIdFuncionario()== 0) {
+				// funcionarioDAO.inserir(f1);
+	        //}
 			f1 = funcionarioDAO.pesquisaNomeFuncionario(f1.getNome());
 			r1.setFuncionario(f1);
 
@@ -81,7 +95,7 @@ public class TesteReserva {
 			r1.setValorPago(s1.nextDouble());
 			s1.nextLine();
 			
-			reservaDAO.inserir(r1);
+			reservaDAO.inserir(r1);			
 			System.out.println("FIM");
 		}
 	}

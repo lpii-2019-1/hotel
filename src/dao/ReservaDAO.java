@@ -36,9 +36,6 @@ public class ReservaDAO {
             throw new RuntimeException(e);
         } 
     }
-    
-   
-    
     public ArrayList<Reserva> listarReservas() {
         String sql = "SELECT * FROM reservas";
         try {

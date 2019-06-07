@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import dao.HospedeDAO;
 import model.Hospede;
+import model.Quarto;
 
 public class TesteHospede {
 	public static void main(String[] args) {
@@ -49,15 +50,16 @@ public class TesteHospede {
 			if(buscar == 1){
 				System.out.println("Digite o nome do hospede que deseja buscar");
 				String nome = s1.nextLine();
-				Hospede hospedePesquisado = hospedeDAO.pesquisaNomeHospede(nome);
-		        if (hospedePesquisado.getIdHospede() != 0) {
-		            System.out.println("idHospede: " +hospedePesquisado.getIdHospede());
-		            System.out.println("Nome: " +hospedePesquisado.getNome());
-		            System.out.println("CPF: " +hospedePesquisado.getCpf());
-		            System.out.println("Telefone: " +hospedePesquisado.getTelefone());
-		            System.out.println("Endereco: " +hospedePesquisado.getEndereco());
-		            System.out.println("Email: " +hospedePesquisado.getEmail());
-		            System.out.println("Data de Cadastro: " +hospedePesquisado.getDataCadastro());
+				ArrayList<Hospede> hospedePesquisado = hospedeDAO.pesquisaNomeHospede(nome);
+		        for (Hospede h: hospedePesquisado) {
+		            System.out.println("idHospede: " +h.getIdHospede());
+		            System.out.println("Nome: " +h.getNome());
+		            System.out.println("CPF: " +h.getCpf());
+		            System.out.println("Telefone: " +h.getTelefone());
+		            System.out.println("Endereco: " +h.getEndereco());
+		            System.out.println("Email: " +h.getEmail());
+		            System.out.println("Data de Cadastro: " +h.getDataCadastro());
+		            System.out.println("********************************");
 		        }
 			}
 			

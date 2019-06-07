@@ -3,14 +3,18 @@ package teste;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import dao.ReservaDAO;
 import dao.HospedeDAO;
-import dao.QuartoDAO;
-import dao.FuncionarioDAO;
 import model.Hospede;
-import model.Quarto;
-import model.Reserva;
+
+import dao.FuncionarioDAO;
 import model.Funcionario;
+
+import dao.ReservaDAO;
+import model.Reserva;
+
+import dao.QuartoDAO;
+import model.Quarto;
+
 
 public class TesteReserva {
 	public static void main(String[] args) {
@@ -39,30 +43,19 @@ public class TesteReserva {
 		int opcao = s1.nextInt();
 		s1.nextLine();
 
-		 // Cidade c1 = new Cidade();
-        // c1.setNome("Ceres");
-        
-        // Aluno a1 = new Aluno();
-        // a1.setNome("Teste");
-        
-        // if (cidadeDAO.pesquisaNome(c1.getNome()).getIdCidade() == 0) {
-        //     cidadeDAO.inserir(c1);
-        // }
-        // c1 = cidadeDAO.pesquisaNome(c1.getNome());
-        
-        // a1.setCidade(c1);
-        // alunoDAO.inserir(a1);
-		
-		
-		
 		if(opcao == 1) {
 			Hospede h1 = new Hospede();
 			System.out.println("Nome Hospede");
-			h1.setNome(s1.nextLine());
-			System.out.println("Nome Funcionario");
+			String nomeHospede = s1.nextLine();
+			h1.setNome(nomeHospede);
+			System.out.println("Cpf Hospede");
+			String cpfHospede = s1.nextLine();
+			h1.setCpf(cpfHospede);
+			
 			Funcionario f1 = new Funcionario();
-			f1.setNome(s1.nextLine());
-
+			System.out.println("Nome Funcionario");
+			String nomeFuncionario = s1.nextLine();
+			f1.setNome(nomeFuncionario);
 
 			Reserva r1 = new Reserva();
 			System.out.println("Data de Inicio de Ocupacao: ");
@@ -70,26 +63,26 @@ public class TesteReserva {
 			System.out.println("Data de Fim de Ocupacao: ");
 			r1.setFimOcupacao(s1.nextLine());
 			
+			if (hospedeDAO.pesquisaCpfHospede(h1.getCpf()).getIdHospede()== 0) {
+				 hospedeDAO.inserir(h1);
+	         }
+			h1 = hospedeDAO.pesquisaCpfHospede(h1.getCpf());
+			r1.setHospede(h1);
+			if (funcionarioDAO.pesquisaNomeFuncionario(f1.getNome()).getIdFuncionario()== 0) {
+				 funcionarioDAO.inserir(f1);
+	        }
+			f1 = funcionarioDAO.pesquisaNomeFuncionario(f1.getNome());
+			r1.setFuncionario(f1);
+
 			System.out.println("Valor Total da Reserva: ");
 			r1.setValorTotal(s1.nextDouble());
 			s1.nextLine();
 			System.out.println("Valor Pago: ");
 			r1.setValorPago(s1.nextDouble());
-			if (hospedeDAO.pesquisaNomeHospede(h1.getNome()).getIdHospede()== 0) {
-				 hospedeDAO.inserir(h1);
-	         }
-			
-			if (funcionarioDAO.pesquisaNomeFuncionario(f1.getNome()).getIdFuncionario()== 0) {
-				 funcionarioDAO.inserir(f1);
-	        }
-			f1 = funcionarioDAO.pesquisaNomeFuncionario(f1.getNome());
 			s1.nextLine();
-			r1.setHospede(h1);
-			r1.setFuncionario(f1);
+			
 			reservaDAO.inserir(r1);
-		
 			System.out.println("FIM");
 		}
-		
 	}
 }

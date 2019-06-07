@@ -51,11 +51,11 @@ public class QuartoDAO {
         }
     }
    
-    public  ArrayList<Quarto>pesquisaOcupacaoQuarto(int OcupacaoQuarto) {
-        String sql = "SELECT * FROM quarto WHERE OcupacaoQuarto = ?";
+    public  ArrayList<Quarto>pesquisaOcupacaoQuarto(int ocupacaoQuarto) {
+        String sql = "SELECT * FROM quarto WHERE ocupacaoQuarto = ?";
         try {
             stmt = conexao.prepareStatement(sql);
-            stmt.setInt(1, OcupacaoQuarto);
+            stmt.setInt(1, ocupacaoQuarto);
             ResultSet rs = stmt.executeQuery();
             ArrayList<Quarto> disponiveis = new ArrayList<Quarto>();
             while (rs.next()) {
@@ -63,11 +63,55 @@ public class QuartoDAO {
             	quarto.setNumeroQuarto(rs.getInt("numeroQuarto"));
             	quarto.setDescricao(rs.getString("descricao"));
             	quarto.setValor(rs.getDouble("valor"));
-                quarto.setOcupacaoQuarto(rs.getInt("OcupacaoQuarto"));
+                quarto.setOcupacaoQuarto(rs.getInt("ocupacaoQuarto"));
                 disponiveis.add(quarto);
             }
             stmt.close();
             return disponiveis;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public ArrayList<Quarto>pesquisaDescricao(String descricao) {
+        String sql = "SELECT * FROM quarto WHERE descricao LIKE ?";
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, "%"+ descricao +"%");
+            ResultSet rs = stmt.executeQuery();
+            ArrayList<Quarto> descricaoQuartos = new ArrayList<Quarto>();
+            while (rs.next()) {
+            	Quarto quarto = new Quarto();
+            	quarto.setNumeroQuarto(rs.getInt("numeroQuarto"));
+            	quarto.setDescricao(rs.getString("descricao"));
+            	quarto.setValor(rs.getDouble("valor"));
+                quarto.setOcupacaoQuarto(rs.getInt("ocupacaoQuarto"));
+                descricaoQuartos.add(quarto);
+            }
+            stmt.close();
+            return descricaoQuartos;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public  ArrayList<Quarto>pesquisaValor(double valor) {
+        String sql = "SELECT * FROM quarto WHERE valor = ?";
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setDouble(1, valor);
+            ResultSet rs = stmt.executeQuery();
+            ArrayList<Quarto> valorQuartos = new ArrayList<Quarto>();
+            while (rs.next()) {
+            	Quarto quarto = new Quarto();
+            	quarto.setNumeroQuarto(rs.getInt("numeroQuarto"));
+            	quarto.setDescricao(rs.getString("descricao"));
+            	quarto.setValor(rs.getDouble("valor"));
+                quarto.setOcupacaoQuarto(rs.getInt("ocupacaoQuarto"));
+                valorQuartos.add(quarto);
+            }
+            stmt.close();
+            return valorQuartos;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -84,7 +128,7 @@ public class QuartoDAO {
             	quarto.setNumeroQuarto(rs.getInt("numeroQuarto"));
             	quarto.setDescricao(rs.getString("descricao"));
             	quarto.setValor(rs.getDouble("valor"));
-                quarto.setOcupacaoQuarto(rs.getInt("OcupacaoQuarto"));
+                quarto.setOcupacaoQuarto(rs.getInt("ocupacaoQuarto"));
                 lista.add(quarto);
             }
             stmt.close();
@@ -149,7 +193,7 @@ public class QuartoDAO {
     }
     
     public boolean editarOcupacao(Quarto quarto){
-        String sql ="UPDATE quarto SET idOcupacaoQuarto = ? WHERE numeroQuarto = ?";
+        String sql ="UPDATE quarto SET ocupacaoQuarto = ? WHERE numeroQuarto = ?";
         try {
             stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, quarto.getOcupacaoQuarto());

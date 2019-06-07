@@ -56,7 +56,6 @@ public class HospedeDAO {
             throw new RuntimeException(e);
         }
     }
-    
     public Hospede pesquisaCpfHospede(String cpfHospede) {
         String sql = "SELECT * FROM hospede WHERE cpf = ?";
         try {
@@ -128,11 +127,11 @@ public class HospedeDAO {
     }
     
     public boolean editarNome(Hospede hospede){
-        String sql ="UPDATE hospede SET nome = ? WHERE idHospede = ?";
+        String sql ="UPDATE hospede SET nome = ? WHERE cpf = ?";
         try {
             stmt = conexao.prepareStatement(sql);
             stmt.setString(1, hospede.getNome());
-            stmt.setInt(2,hospede.getIdHospede());
+            stmt.setString(2, hospede.getCpf());
             int n=stmt.executeUpdate();
             if (n!=0){
                 return true;
@@ -146,11 +145,11 @@ public class HospedeDAO {
     }
     
     public boolean editarCpf(Hospede hospede){
-        String sql ="UPDATE hospede SET cpf = ? WHERE idHospede = ?";
+        String sql ="UPDATE hospede SET cpf = ? WHERE nome = ?";
         try {
             stmt = conexao.prepareStatement(sql);
             stmt.setString(1, hospede.getCpf());
-            stmt.setInt(2,hospede.getIdHospede());
+            stmt.setString(2, hospede.getNome());
             int n=stmt.executeUpdate();
             if (n!=0){
                 return true;
@@ -164,11 +163,11 @@ public class HospedeDAO {
     }
     
     public boolean editarTelefone(Hospede hospede){
-        String sql ="UPDATE hospede SET telefone = ? WHERE idHospede = ?";
+        String sql ="UPDATE hospede SET telefone = ? WHERE cpf = ?";
         try {
             stmt = conexao.prepareStatement(sql);
             stmt.setString(1, hospede.getTelefone());
-            stmt.setInt(2,hospede.getIdHospede());
+            stmt.setString(2, hospede.getCpf());
             int n=stmt.executeUpdate();
             if (n!=0){
                 return true;
@@ -182,11 +181,11 @@ public class HospedeDAO {
     }
     
     public boolean editarEndereco(Hospede hospede){
-        String sql ="UPDATE hospede SET endereco = ? WHERE idHospede = ?";
+        String sql ="UPDATE hospede SET endereco = ? WHERE cpf = ?";
         try {
             stmt = conexao.prepareStatement(sql);
             stmt.setString(1, hospede.getEndereco());
-            stmt.setInt(2,hospede.getIdHospede());
+            stmt.setString(2, hospede.getCpf());
             int n=stmt.executeUpdate();
             if (n!=0){
                 return true;
@@ -200,11 +199,11 @@ public class HospedeDAO {
     }
     
     public boolean editarEmail(Hospede hospede){
-        String sql ="UPDATE hospede SET email = ? WHERE idHospede = ?";
+        String sql ="UPDATE hospede SET email = ? WHERE cpf = ?";
         try {
             stmt = conexao.prepareStatement(sql);
             stmt.setString(1, hospede.getEmail());
-            stmt.setInt(2,hospede.getIdHospede());
+            stmt.setString(2, hospede.getCpf());
             int n=stmt.executeUpdate();
             if (n!=0){
                 return true;
@@ -218,11 +217,11 @@ public class HospedeDAO {
     }
     
     public boolean editarDataCadastro(Hospede hospede){
-        String sql ="UPDATE hospede SET dataCadastro = ? WHERE idHospede = ?";
+        String sql ="UPDATE hospede SET dataCadastro = ? WHERE cpf = ?";
         try {
             stmt = conexao.prepareStatement(sql);
             stmt.setString(1, hospede.getDataCadastro());
-            stmt.setInt(2,hospede.getIdHospede());
+            stmt.setString(2, hospede.getCpf());
             int n=stmt.executeUpdate();
             if (n!=0){
                 return true;

@@ -1,15 +1,10 @@
 package teste;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import dao.QuartoDAO;
 import model.Quarto;
-import dao.HospedeDAO;
-import dao.OcupacaoQuartoDAO;
-import model.Hospede;
-import model.OcupacaoQuarto;
 
 public class TesteQuarto {
 	public static void main(String[] args) {
@@ -21,7 +16,8 @@ public class TesteQuarto {
 		System.out.println("2 - Buscar Quarto");
 		System.out.println("3 - Editar Quarto");
 		System.out.println("4 - Excluir Quarto");
-		System.out.println("5 - Listar todos os Quartos");
+		System.out.println("5 - Listar Quartos Disponiveis");
+		System.out.println("6 - Listar todos os Quartos");
 		int opcao = s1.nextInt();
 		s1.nextLine();
 		
@@ -40,15 +36,47 @@ public class TesteQuarto {
 		}
 		
 		if(opcao == 2){
-			System.out.println("Digite o nome do quarto que deseja buscar");
-			int numero = s1.nextInt();
-			Quarto quartoPesquisado = quartoDAO.pesquisaNumero(numero);
-	            System.out.println("Numero do Quarto: " +quartoPesquisado.getNumeroQuarto());
-	            System.out.println("Descricao: " +quartoPesquisado.getDescricao());
-	            System.out.println("Valor da diaria: " +quartoPesquisado.getValor());
-	            System.out.println("Disponibilidade: " +quartoPesquisado.getOcupacaoQuarto());
+			System.out.println("Qual registro deseja buscar?");
+			System.out.println("1 - Numero do Quarto");
+			System.out.println("2 - Descricao");
+			System.out.println("3 - Valor da Diaria");
+			int buscar = s1.nextInt();
+			s1.nextLine();
+			
+			if(buscar == 1){
+				System.out.println("Digite o numero do quarto que deseja buscar");
+				int numero = s1.nextInt();
+				Quarto quartoPesquisado = quartoDAO.pesquisaNumero(numero);
+		        System.out.println("Numero do Quarto: " +quartoPesquisado.getNumeroQuarto());
+		        System.out.println("Descricao: " +quartoPesquisado.getDescricao());
+		        System.out.println("Valor da diaria: " +quartoPesquisado.getValor());
+		        System.out.println("Disponibilidade: " +quartoPesquisado.getOcupacaoQuarto());
+			}
+			if(buscar == 2){
+				System.out.println("Digite a descricao do quarto que deseja buscar");
+				String descricao = s1.nextLine();
+				ArrayList<Quarto> quartoPesquisado = quartoDAO.pesquisaDescricao(descricao);
+				for (Quarto q: quartoPesquisado) {
+					System.out.println("Numero: " +q.getNumeroQuarto());
+				    System.out.println("Descricao: " +q.getDescricao());
+				    System.out.println("Valor da diaria: " +q.getValor());
+			        System.out.println("Disponibilidade: " +q.getOcupacaoQuarto());
+				    System.out.println("********************************");
+				}
+			}
+			if(buscar == 3){
+				System.out.println("Digite o valor do quarto que deseja");
+				double valor = s1.nextDouble();
+				ArrayList<Quarto> quartoPesquisado = quartoDAO.pesquisaValor(valor);
+				for (Quarto q: quartoPesquisado) {
+					System.out.println("Numero: " +q.getNumeroQuarto());
+				    System.out.println("Descricao: " +q.getDescricao());
+				    System.out.println("Valor da diaria: " +q.getValor());
+			        System.out.println("Disponibilidade: " +q.getOcupacaoQuarto());
+				    System.out.println("********************************");
+				}
+			}
 		 }
-		
 		
 		if(opcao == 3){
 			System.out.println("Qual registro será alterado?");
@@ -86,7 +114,6 @@ public class TesteQuarto {
 				quartoDAO.editarValor(q1);
 				System.out.println("FIM");
 			}
-			
 		}
 		
 		if(opcao == 4){
@@ -97,13 +124,23 @@ public class TesteQuarto {
 			System.out.println("FIM");
 		}
 		
-		if(opcao == 5){
+		if (opcao ==5){
+			System.out.println("QUARTOS DISPONIVEIS");
+	        System.out.println("********************************");
+			ArrayList<Quarto> quarto = quartoDAO.pesquisaOcupacaoQuarto(0);	
+			for (Quarto q: quarto) {
+				System.out.println("Numero: " +q.getNumeroQuarto());
+		        System.out.println("Descricao: " +q.getDescricao());
+		        System.out.println("Valor da diaria: " +q.getValor());
+		        System.out.println("********************************");
+		    }
+		}
+		if(opcao == 6){
 			 ArrayList<Quarto> quarto = quartoDAO.listarQuartos();
 		     for (Quarto q : quarto) {
 		            System.out.println("Numero: " + q.getNumeroQuarto());
 		            System.out.println("Descricao: " +q.getDescricao());
 		            System.out.println("Valor da diaria: " +q.getValor());
-		            System.out.println("idDisponibilidade: " +q.getOcupacaoQuarto());
 		            System.out.println("Disponibilidade: " +q.getOcupacaoQuarto());
 		            System.out.println("********************************");
 		        }

@@ -25,19 +25,13 @@ CREATE TABLE funcionario (
     PRIMARY KEY(idFuncionario)
 );
 
-CREATE TABLE ocupacaoQuarto (
-	idOcupacaoQuarto INT NOT NULL AUTO_INCREMENT,
-	disponibilidade VARCHAR(20) NOT NULL,
-    PRIMARY KEY(idOcupacaoQuarto)
-);
-
 CREATE TABLE quarto (
-	numeroQuarto INT NOT NULL AUTO_INCREMENT,
+	idQuarto INT NOT NULL AUTO_INCREMENT,
+	numeroQuarto INT NOT NULL,
     descricao VARCHAR(200) NOT NULL, 
     valor DECIMAL(10,2) NOT NULL,
-    idOcupacaoQuarto INT,
-    PRIMARY KEY(numeroQuarto),
-    FOREIGN KEY(idOcupacaoQuarto) REFERENCES ocupacaoQuarto (idOcupacaoQuarto)
+    OcupacaoQuarto BOOLEAN NOT NULL,
+    PRIMARY KEY(idQuarto)
 );
 
 CREATE TABLE reserva (
@@ -46,6 +40,8 @@ CREATE TABLE reserva (
 	fimOcupacao DATE,
     idHospede INT NOT NULL,
 	idFuncionario INT NOT NULL,
+    valorTotal DECIMAL(10,2),
+    valorPago DECIMAL(10,2),
     PRIMARY KEY(idReserva),
     FOREIGN KEY(idHospede) REFERENCES hospede (idHospede),
 	FOREIGN KEY(idFuncionario) REFERENCES funcionario (idFuncionario)
@@ -53,21 +49,9 @@ CREATE TABLE reserva (
 
 CREATE TABLE reservaQuarto (
 	idReservaQuarto INT NOT NULL AUTO_INCREMENT,
-    numeroQuarto INT NOT NULL,
+    idQuarto INT NOT NULL,
 	idReserva INT NOT NULL,
     PRIMARY KEY(idReservaQuarto),
-    FOREIGN KEY(numeroQuarto) REFERENCES quarto (numeroQuarto),
+    FOREIGN KEY(idQuarto) REFERENCES quarto (idQuarto),
 	FOREIGN KEY(idReserva) REFERENCES reserva (idReserva)
 );
-
-CREATE TABLE pagamento (
-	idPagamento INT NOT NULL AUTO_INCREMENT,
-    valorTotal DECIMAL(10,2),
-    valorPago DECIMAL(10,2),
-	idReservaQuarto INT NOT NULL,
-    PRIMARY KEY(idPagamento),
-	FOREIGN KEY(idReservaQuarto) REFERENCES reservaQuarto (idReservaQuarto)
-);
-
-
-INSERT INTO ocupacaoquarto (idOcupacaoQuarto, disponibilidade) VALUES  (NULL, 'DISPONIVEL'), (NULL, 'OCUPADO');

@@ -22,20 +22,21 @@ public class ReservaDAO {
     }
 
     public void inserir(Reserva reserva) {
-        String sql = "INSERT INTO reserva (inicioOcupacao, fimOcupacao, idHospede, idFuncionario) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO reserva (inicioOcupacao, fimOcupacao, valorTotal, valorPago,idHospede, idFuncionario) VALUES (?,?,?,?,?,?)";
         try {
         	stmt = conexao.prepareStatement(sql);
             stmt.setString(1, reserva.getInicioOcupacao());
             stmt.setString(2, reserva.getFimOcupacao());
-            stmt.setInt(3, reserva.getHospede().getIdHospede());
-            stmt.setInt(4, reserva.getFuncionario().getIdFuncionario());
+            stmt.setDouble(3, reserva.getValorTotal());
+            stmt.setDouble(4, reserva.getValorPago());
+            stmt.setInt(5, reserva.getHospede().getIdHospede());
+            stmt.setInt(6, reserva.getFuncionario().getIdFuncionario());
             stmt.execute();
             stmt.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
         } 
     }
-    
     
     public Reserva pesquisaNumero(int numeroQuarto) {
         String sql = "SELECT * FROM reserva INNER JOIN reservaquarto ON reserva.idReserva = reservaquarto.idReserva WHERE quarto = ?";

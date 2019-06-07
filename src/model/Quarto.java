@@ -5,7 +5,7 @@ public class Quarto {
 	int numeroQuarto;
 	String descricao;
 	double valor;
-	OcupacaoQuarto ocupacaoQuarto;
+	int ocupacaoQuarto;
 	
 
 	public int getIdQuarto() {
@@ -35,11 +35,10 @@ public class Quarto {
 	public void setValor(double valor) {
 		this.valor = valor;
 	}
-
-	public OcupacaoQuarto getOcupacaoQuarto() {
+	public int getOcupacaoQuarto() {
 		return ocupacaoQuarto;
 	}
-	public void setOcupacaoQuarto(OcupacaoQuarto ocupacaoQuarto) {
+	public void setOcupacaoQuarto(int ocupacaoQuarto) {
 		this.ocupacaoQuarto = ocupacaoQuarto;
 	}
 }

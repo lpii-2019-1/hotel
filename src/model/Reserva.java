@@ -1,4 +1,5 @@
 package model;
+import java.util.ArrayList;
 
 public class Reserva {
 	private int idReserva;
@@ -6,6 +7,9 @@ public class Reserva {
 	private String fimOcupacao;
 	private Hospede hospede;
 	private Funcionario funcionario;
+	private double valorTotal;
+	private double valorPago;
+	private ArrayList<Quarto> quartos;
 
 	public int getIdReserva() {
 		return idReserva;
@@ -41,5 +45,22 @@ public class Reserva {
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
-	
+	public double getValorTotal() {
+		return valorTotal;
+	}
+	public void setValorTotal(double valorTotal) {
+		this.valorTotal = valorTotal;
+	}
+	public double getValorPago() {
+		return valorPago;
+	}
+	public void setValorPago(double valorPago) {
+		this.valorPago = valorPago;
+	}
+	public ArrayList<Quarto> getQuartos() {
+		return quartos;
+	}
+	public void setQuartos(ArrayList<Quarto> quartos) {
+		this.quartos = quartos;
+	}
 }

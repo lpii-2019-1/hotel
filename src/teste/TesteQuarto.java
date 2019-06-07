@@ -26,10 +26,6 @@ public class TesteQuarto {
 		s1.nextLine();
 		
 		if(opcao == 1){
-			OcupacaoQuartoDAO ocupacaoquartoDAO = new OcupacaoQuartoDAO();
-			OcupacaoQuarto oc1 = new OcupacaoQuarto();
-			oc1.setDisponibilidade("Disponivel");
-			
 			Quarto q1 = new Quarto();
 			System.out.println("Numero do Quarto");
 			q1.setNumeroQuarto(s1.nextInt());
@@ -38,15 +34,9 @@ public class TesteQuarto {
 			q1.setDescricao(s1.nextLine());		
 			System.out.println("Valor da diaria");
 			q1.setValor(s1.nextDouble());
-			s1.nextLine();
-			 if (ocupacaoquartoDAO.pesquisaDisponibilidade(oc1.getDisponibilidade()).getIdOcupacaoQuarto() == 0) {
-				 ocupacaoquartoDAO.inserir(oc1);
-			 }
-			 oc1 = ocupacaoquartoDAO.pesquisaDisponibilidade(oc1.getDisponibilidade());
-			 
-			 q1.setOcupacaoQuarto(oc1);
-			 quartoDAO.inserir(q1);
-			 System.out.println("FIM");
+			q1.setOcupacaoQuarto(0);
+			quartoDAO.inserir(q1);
+			System.out.println("FIM");
 		}
 		
 		if(opcao == 2){
@@ -56,8 +46,7 @@ public class TesteQuarto {
 	            System.out.println("Numero do Quarto: " +quartoPesquisado.getNumeroQuarto());
 	            System.out.println("Descricao: " +quartoPesquisado.getDescricao());
 	            System.out.println("Valor da diaria: " +quartoPesquisado.getValor());
-	            System.out.println("idDisponibilidade: " +quartoPesquisado.getOcupacaoQuarto().getIdOcupacaoQuarto());
-	            System.out.println("Disponibilidade: " +quartoPesquisado.getOcupacaoQuarto().getDisponibilidade());
+	            System.out.println("Disponibilidade: " +quartoPesquisado.getOcupacaoQuarto());
 		 }
 		
 		
@@ -75,7 +64,7 @@ public class TesteQuarto {
 				System.out.println("Novo Numero");
 				q1.setNumeroQuarto(s1.nextInt());
 				System.out.println("idQuarto");
-				q1.setNumeroQuarto(s1.nextInt());
+				q1.setIdQuarto(s1.nextInt());
 				quartoDAO.editarNumero(q1);
 				System.out.println("FIM");
 			}
@@ -101,9 +90,8 @@ public class TesteQuarto {
 		}
 		
 		if(opcao == 4){
-			System.out.println("Informe os dados para excluir um hospede");
 			Quarto q1 = new Quarto();
-			System.out.println("Numero do Quarto");
+			System.out.println("Informe o quarto que será excluido");
 			q1.setNumeroQuarto(s1.nextInt());
 			quartoDAO.excluir(q1);
 			System.out.println("FIM");
@@ -111,14 +99,13 @@ public class TesteQuarto {
 		
 		if(opcao == 5){
 			 ArrayList<Quarto> quarto = quartoDAO.listarQuartos();
-		        for (Quarto q : quarto) {
+		     for (Quarto q : quarto) {
 		            System.out.println("Numero: " + q.getNumeroQuarto());
 		            System.out.println("Descricao: " +q.getDescricao());
 		            System.out.println("Valor da diaria: " +q.getValor());
-		            System.out.println("idDisponibilidade: " +q.getOcupacaoQuarto().getIdOcupacaoQuarto());
-		            System.out.println("Disponibilidade: " +q.getOcupacaoQuarto().getDisponibilidade());
+		            System.out.println("idDisponibilidade: " +q.getOcupacaoQuarto());
+		            System.out.println("Disponibilidade: " +q.getOcupacaoQuarto());
 		            System.out.println("********************************");
-		          
 		        }
 		}
 	}

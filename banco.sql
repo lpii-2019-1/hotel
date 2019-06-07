@@ -55,3 +55,11 @@ CREATE TABLE reservaQuarto (
     FOREIGN KEY(idQuarto) REFERENCES quarto (idQuarto),
 	FOREIGN KEY(idReserva) REFERENCES reserva (idReserva)
 );
+
+INSERT INTO hospede (nome,cpf,telefone,endereco,email,dataCadastro) VALUES ('Alexandre',12345678901,'996369636','Rua tal n 1','algumacoisa@gmail.com','2000-12-45'),
+																		   ('Hospede',98745612311,'915155151','Rua qual n 1','outracoisa@gmail.com','2015-12-45'),
+                                                                           ('Hospede',97878454545,'915155151','Rua qual n 1','outracoisa@gmail.com','2015-12-45');
+
+INSERT INTO funcionario (nome,cpf,telefone,endereco,email,cargo,salario,dataAdmissao) VALUES ('pedrim',12345678901,'996369636','Rua tal n 1','algumacoisa@gmail.com','limpeza',500.50,'2010-12-45'),
+																							 ('pedrim',98745612311,'915155151','Rua qual n 1','outracoisa@gmail.com','limpeza',500.50,'2011-12-45'),
+																							 ('tiao',97878454545,'915155151','Rua qual n 1','outracoisa@gmail.com','manutencao',700.50,'2009-12-45');

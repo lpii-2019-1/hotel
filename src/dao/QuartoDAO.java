@@ -39,6 +39,7 @@ public class QuartoDAO {
             ResultSet rs = stmt.executeQuery();
             Quarto quarto = new Quarto();
             if (rs.next()) {
+            	quarto.setIdQuarto(rs.getInt("idQuarto"));
             	quarto.setNumeroQuarto(rs.getInt("numeroQuarto"));
             	quarto.setDescricao(rs.getString("descricao"));
             	quarto.setValor(rs.getDouble("valor"));
@@ -60,6 +61,7 @@ public class QuartoDAO {
             ArrayList<Quarto> disponiveis = new ArrayList<Quarto>();
             while (rs.next()) {
             	Quarto quarto = new Quarto();
+            	quarto.setIdQuarto(rs.getInt("idQuarto"));
             	quarto.setNumeroQuarto(rs.getInt("numeroQuarto"));
             	quarto.setDescricao(rs.getString("descricao"));
             	quarto.setValor(rs.getDouble("valor"));
@@ -82,6 +84,7 @@ public class QuartoDAO {
             ArrayList<Quarto> descricaoQuartos = new ArrayList<Quarto>();
             while (rs.next()) {
             	Quarto quarto = new Quarto();
+            	quarto.setIdQuarto(rs.getInt("idQuarto"));
             	quarto.setNumeroQuarto(rs.getInt("numeroQuarto"));
             	quarto.setDescricao(rs.getString("descricao"));
             	quarto.setValor(rs.getDouble("valor"));
@@ -104,6 +107,7 @@ public class QuartoDAO {
             ArrayList<Quarto> valorQuartos = new ArrayList<Quarto>();
             while (rs.next()) {
             	Quarto quarto = new Quarto();
+            	quarto.setIdQuarto(rs.getInt("idQuarto"));
             	quarto.setNumeroQuarto(rs.getInt("numeroQuarto"));
             	quarto.setDescricao(rs.getString("descricao"));
             	quarto.setValor(rs.getDouble("valor"));
@@ -192,12 +196,28 @@ public class QuartoDAO {
         }
     }
     
-    public boolean editarOcupacao(Quarto quarto){
-        String sql ="UPDATE quarto SET ocupacaoQuarto = ? WHERE numeroQuarto = ?";
+    public boolean ocuparQuarto(Quarto quarto){
+        String sql ="UPDATE quarto SET ocupacaoQuarto = 1 WHERE numeroQuarto = ?";
         try {
             stmt = conexao.prepareStatement(sql);
-            stmt.setInt(1, quarto.getOcupacaoQuarto());
-            stmt.setInt(2, quarto.getNumeroQuarto());
+            stmt.setInt(1, quarto.getNumeroQuarto());
+            int n=stmt.executeUpdate();
+            if (n!=0){
+                return true;
+            }
+            else {
+                return false;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public boolean disponibilizarQuarto(Quarto quarto){
+        String sql ="UPDATE quarto SET ocupacaoQuarto = 0 WHERE numeroQuarto = ?";
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, quarto.getNumeroQuarto());
             int n=stmt.executeUpdate();
             if (n!=0){
                 return true;

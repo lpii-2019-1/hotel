@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import conexao.Conexao;
 import model.Funcionario;
+import model.Hospede;
 public class FuncionarioDAO {
 
     private Connection conexao;
@@ -35,14 +36,15 @@ public class FuncionarioDAO {
         }
     }
     
-    public Funcionario pesquisaNomeFuncionario(String nomeFuncionario) {
+    public ArrayList<Funcionario>pesquisaNomeFuncionario(String nomeFuncionario) {
         String sql = "SELECT * FROM funcionario WHERE nome = ?";
         try {
             stmt = conexao.prepareStatement(sql);
             stmt.setString(1, nomeFuncionario);
             ResultSet rs = stmt.executeQuery();
-            Funcionario funcionario = new Funcionario();
-            if (rs.next()) {
+            ArrayList<Funcionario> nomesFuncionario = new ArrayList<Funcionario>();
+            while (rs.next()) {
+                Funcionario funcionario = new Funcionario();
             	funcionario.setIdFuncionario(rs.getInt("idFuncionario"));
             	funcionario.setNome(rs.getString("nome"));
             	funcionario.setCpf(rs.getString("cpf"));
@@ -52,9 +54,10 @@ public class FuncionarioDAO {
             	funcionario.setCargo(rs.getString("cargo"));
             	funcionario.setSalario(rs.getDouble("salario"));
             	funcionario.setDataAdmissao(rs.getString("dataAdmissao"));
+            	nomesFuncionario.add(funcionario);
             }
             stmt.close();
-            return funcionario;
+            return nomesFuncionario;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -181,11 +184,13 @@ public class FuncionarioDAO {
         }
     }
     public boolean editarCpf(Funcionario funcionario){
-        String sql ="UPDATE funcionario SET cpf = ? WHERE nome = ?";
+        String sql ="UPDATE funcionario SET cpf = ? WHERE nome = ? AND idFuncionario = ?";
         try {
             stmt = conexao.prepareStatement(sql);
             stmt.setString(1, funcionario.getCpf());
             stmt.setString(2, funcionario.getNome());
+            stmt.setInt(3, funcionario.getIdFuncionario());
+
             int n=stmt.executeUpdate();
             if (n!=0){
                 return true;
@@ -284,7 +289,7 @@ public class FuncionarioDAO {
         }
     }
     
-    public boolean editarDataCadastro(Funcionario funcionario){
+    public boolean editarDataAdmissao(Funcionario funcionario){
         String sql ="UPDATE funcionario SET dataAdmissao = ? WHERE cpf = ?";
         try {
             stmt = conexao.prepareStatement(sql);

@@ -37,7 +37,9 @@ CREATE TABLE quarto (
 CREATE TABLE reserva (
 	idReserva INT NOT NULL AUTO_INCREMENT,
     inicioOcupacao DATE NOT NULL,
-	fimOcupacao DATE,
+	horaSaida TIME NOT NULL,
+    fimOcupacao DATE,
+    horaSaida TIME,
     idHospede INT NOT NULL,
 	idFuncionario INT NOT NULL,
     valorTotal DECIMAL(10,2),
@@ -56,10 +58,10 @@ CREATE TABLE reservaQuarto (
 	FOREIGN KEY(idReserva) REFERENCES reserva (idReserva)
 );
 
-INSERT INTO hospede (nome,cpf,telefone,endereco,email,dataCadastro) VALUES ('Alexandre',12345678901,'996369636','Rua tal n 1','algumacoisa@gmail.com','2000-12-45'),
-																		   ('Hospede',98745612311,'915155151','Rua qual n 1','outracoisa@gmail.com','2015-12-45'),
-                                                                           ('Hospede',97878454545,'915155151','Rua qual n 1','outracoisa@gmail.com','2015-12-45');
+INSERT INTO hospede (nome,cpf,telefone,endereco,email,dataCadastro) VALUES ('Alexandre',12345678901,'996369636','Rua tal n 1','algumacoisa@gmail.com','2000-12-15'),
+																		   ('Hospede',98745612311,'915155151','Rua qual n 1','outracoisa@gmail.com','2015-12-15'),
+                                                                           ('Hospede',97878454545,'915155151','Rua qual n 1','outracoisa@gmail.com','2015-12-15');
 
-INSERT INTO funcionario (nome,cpf,telefone,endereco,email,cargo,salario,dataAdmissao) VALUES ('pedrim',12345678901,'996369636','Rua tal n 1','algumacoisa@gmail.com','limpeza',500.50,'2010-12-45'),
-																							 ('pedrim',98745612311,'915155151','Rua qual n 1','outracoisa@gmail.com','limpeza',500.50,'2011-12-45'),
-																							 ('tiao',97878454545,'915155151','Rua qual n 1','outracoisa@gmail.com','manutencao',700.50,'2009-12-45');
+INSERT INTO funcionario (nome,cpf,telefone,endereco,email,cargo,salario,dataAdmissao) VALUES ('pedrim',12345678901,'996369636','Rua tal n 1','algumacoisa@gmail.com','limpeza',500.50,'2010-12-15'),
+																							 ('pedrim',98745612311,'915155151','Rua qual n 1','outracoisa@gmail.com','limpeza',500.50,'2011-12-15'),
+																							 ('tiao',97878454545,'915155151','Rua qual n 1','outracoisa@gmail.com','manutencao',700.50,'2009-12-15');

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import conexao.Conexao;
 import model.Hospede;
-import model.Quarto;
 
 public class HospedeDAO {
 
@@ -42,7 +41,6 @@ public class HospedeDAO {
             stmt.setString(1, nomeHospede);
             ResultSet rs = stmt.executeQuery();
             ArrayList<Hospede> nomeHospedes = new ArrayList<Hospede>();
-
             while (rs.next()) {
                 Hospede hospede = new Hospede();
             	hospede.setIdHospede(rs.getInt("idHospede"));
@@ -150,11 +148,12 @@ public class HospedeDAO {
     }
     
     public boolean editarCpf(Hospede hospede){
-        String sql ="UPDATE hospede SET cpf = ? WHERE nome = ?";
+        String sql ="UPDATE hospede SET cpf = ? WHERE nome = ?  and idHospede = ?";
         try {
             stmt = conexao.prepareStatement(sql);
             stmt.setString(1, hospede.getCpf());
             stmt.setString(2, hospede.getNome());
+            stmt.setInt(3, hospede.getIdHospede());
             int n=stmt.executeUpdate();
             if (n!=0){
                 return true;

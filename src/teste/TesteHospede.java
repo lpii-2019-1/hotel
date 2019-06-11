@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import dao.HospedeDAO;
 import model.Hospede;
-import model.Quarto;
 
 public class TesteHospede {
 	public static void main(String[] args) {
@@ -35,10 +34,15 @@ public class TesteHospede {
 			System.out.println("Email");
 			h1.setEmail(s1.nextLine());
 			System.out.println("Data de Cadastro");
-			h1.setDataCadastro(s1.nextLine());
-			hospedeDAO.inserir(h1);
-			
-			System.out.println("FIM");
+			h1.setDataCadastro(s1.nextLine());			
+			Hospede hospedePesquisado = hospedeDAO.pesquisaCpfHospede(h1.getCpf());
+	        if (hospedePesquisado.getIdHospede() == 0) {
+				hospedeDAO.inserir(h1);
+				System.out.println("\n HOSPEDE CADASTRADO COM SUCESSO");
+	        }
+	        else{
+				System.out.println("\n HOSPEDE JÁ CADASTRADO");
+	        }
 		}
 		
 		if(opcao == 2){
@@ -51,7 +55,7 @@ public class TesteHospede {
 				System.out.println("Digite o nome do hospede que deseja buscar");
 				String nome = s1.nextLine();
 				ArrayList<Hospede> hospedePesquisado = hospedeDAO.pesquisaNomeHospede(nome);
-		        for (Hospede h: hospedePesquisado) {
+				for (Hospede h: hospedePesquisado) {
 		            System.out.println("idHospede: " +h.getIdHospede());
 		            System.out.println("Nome: " +h.getNome());
 		            System.out.println("CPF: " +h.getCpf());
@@ -60,7 +64,7 @@ public class TesteHospede {
 		            System.out.println("Email: " +h.getEmail());
 		            System.out.println("Data de Cadastro: " +h.getDataCadastro());
 		            System.out.println("********************************");
-		        }
+		        }   
 			}
 			
 			if(buscar == 2){
@@ -77,7 +81,10 @@ public class TesteHospede {
 		            System.out.println("Data de Cadastro: " +hospedePesquisado.getDataCadastro());
 		            System.out.println("********************************");
 		        }
-			}     
+		        else{
+					System.out.println("\n HOSPEDE NÃO ENCONTRADO");
+		        }
+			}
 		}
 		
 		if(opcao == 3){
@@ -97,9 +104,14 @@ public class TesteHospede {
 				h1.setNome(s1.nextLine());
 				System.out.println("CPF do Hospede:");
 				h1.setCpf(s1.nextLine());
-			
-				hospedeDAO.editarNome(h1);
-				System.out.println("FIM");
+				Hospede hospedePesquisado = hospedeDAO.pesquisaCpfHospede(h1.getCpf());
+		        if (hospedePesquisado.getIdHospede() != 0) {
+					hospedeDAO.editarNome(h1);
+					System.out.println("\n HOSPEDE EDITADO COM SUCESSO");
+		        }
+		        else{
+					System.out.println("\n HOSPEDE NÃO ENCONTRADO");
+		        }
 			}
 			if(editar == 2){
 				Hospede h1 = new Hospede();
@@ -107,8 +119,21 @@ public class TesteHospede {
 				h1.setCpf(s1.nextLine());
 				System.out.println("Nome do hospede:");
 				h1.setNome(s1.nextLine());
+				ArrayList<Hospede> hospedePesquisado = hospedeDAO.pesquisaNomeHospede(h1.getNome());
+				for (Hospede h: hospedePesquisado) {
+		            System.out.println("idHospede: " +h.getIdHospede());
+		            System.out.println("Nome: " +h.getNome());
+		            System.out.println("CPF: " +h.getCpf());
+		            System.out.println("Telefone: " +h.getTelefone());
+		            System.out.println("Endereco: " +h.getEndereco());
+		            System.out.println("Email: " +h.getEmail());
+		            System.out.println("Data de Cadastro: " +h.getDataCadastro());
+		            System.out.println("********************************");
+		        }
+				System.out.println("ID Do Hospede Que Deseja Realizar a Alteração:");
+				h1.setIdHospede(s1.nextInt());
 				hospedeDAO.editarCpf(h1);
-				System.out.println("FIM");
+				System.out.println("\n HOSPEDE EDITADO COM SUCESSO");
 			}
 			if(editar == 3){
 				Hospede h1 = new Hospede();
@@ -116,8 +141,14 @@ public class TesteHospede {
 				h1.setTelefone(s1.nextLine());
 				System.out.println("CPF do Hospede:");
 				h1.setCpf(s1.nextLine());
-				hospedeDAO.editarTelefone(h1);
-				System.out.println("FIM");
+				Hospede hospedePesquisado = hospedeDAO.pesquisaCpfHospede(h1.getCpf());
+		        if (hospedePesquisado.getIdHospede() != 0) {
+					hospedeDAO.editarTelefone(h1);
+					System.out.println("\n HOSPEDE EDITADO COM SUCESSO");
+		        }
+		        else{
+					System.out.println("\n HOSPEDE NÃO ENCONTRADO");
+		        }
 			}
 			if(editar == 4){
 				Hospede h1 = new Hospede();
@@ -125,8 +156,14 @@ public class TesteHospede {
 				h1.setEndereco(s1.nextLine());
 				System.out.println("CPF do Hospede:");
 				h1.setCpf(s1.nextLine());
-				hospedeDAO.editarEndereco(h1);
-				System.out.println("FIM");
+				Hospede hospedePesquisado = hospedeDAO.pesquisaCpfHospede(h1.getCpf());
+		        if (hospedePesquisado.getIdHospede() != 0) {
+					hospedeDAO.editarEndereco(h1);
+					System.out.println("\n HOSPEDE EDITADO COM SUCESSO");
+		        }
+		        else{
+					System.out.println("\n HOSPEDE NÃO ENCONTRADO");
+		        }
 			}
 			if(editar == 5){
 				Hospede h1 = new Hospede();
@@ -134,8 +171,14 @@ public class TesteHospede {
 				h1.setEmail(s1.nextLine());
 				System.out.println("CPF do Hospede:");
 				h1.setCpf(s1.nextLine());
-				hospedeDAO.editarEmail(h1);
-				System.out.println("FIM");
+				Hospede hospedePesquisado = hospedeDAO.pesquisaCpfHospede(h1.getCpf());
+		        if (hospedePesquisado.getIdHospede() != 0) {
+					hospedeDAO.editarEmail(h1);
+					System.out.println("\n HOSPEDE EDITADO COM SUCESSO");
+		        }
+		        else{
+					System.out.println("\n HOSPEDE NÃO ENCONTRADO");
+		        }			
 			}
 			
 			if(editar == 6){
@@ -144,8 +187,14 @@ public class TesteHospede {
 				h1.setDataCadastro(s1.nextLine());
 				System.out.println("CPF do Hospede:");
 				h1.setCpf(s1.nextLine());
-				hospedeDAO.editarDataCadastro(h1);
-				System.out.println("FIM");
+				Hospede hospedePesquisado = hospedeDAO.pesquisaCpfHospede(h1.getCpf());
+		        if (hospedePesquisado.getIdHospede() != 0) {
+					hospedeDAO.editarDataCadastro(h1);
+					System.out.println("\n HOSPEDE EDITADO COM SUCESSO");
+		        }
+		        else{
+					System.out.println("\n HOSPEDE NÃO ENCONTRADO");
+		        }			
 			}
 		}
 		
@@ -155,10 +204,16 @@ public class TesteHospede {
 			System.out.println("Nome:");
 			h1.setNome(s1.nextLine());
 			System.out.println("CPF:");
-			h1.setCpf(s1.nextLine());
-			hospedeDAO.excluir(h1);
-			System.out.println("FIM");
-		}
+			h1.setCpf(s1.nextLine());			
+			Hospede hospedePesquisado = hospedeDAO.pesquisaCpfHospede(h1.getCpf());
+	        if (hospedePesquisado.getIdHospede() != 0) {
+				hospedeDAO.excluir(h1);
+				System.out.println("\n HOSPEDE EXCLUIDO COM SUCESSO");
+	        }
+	        else{
+				System.out.println("\n HOSPEDE NÃO ENCONTRADO");
+	        }		
+	   }
 		
 	
 		if(opcao == 5){

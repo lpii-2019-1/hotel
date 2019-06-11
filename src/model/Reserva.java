@@ -4,7 +4,9 @@ import java.util.ArrayList;
 public class Reserva {
 	private int idReserva;
 	private String inicioOcupacao;
+	private String horaEntrada;
 	private String fimOcupacao;
+	private String horaSaida;
 	private Hospede hospede;
 	private Funcionario funcionario;
 	private double valorTotal;
@@ -25,11 +27,25 @@ public class Reserva {
 		this.inicioOcupacao = inicioOcupacao;
 	}
 	
+	public String getHoraEntrada() {
+		return horaEntrada;
+	}
+	public void setHoraEntrada(String horaEntrada) {
+		this.horaEntrada = horaEntrada;
+	}
+	
 	public String getFimOcupacao() {
 		return fimOcupacao;
 	}
 	public void setFimOcupacao(String fimOcupacao) {
 		this.fimOcupacao = fimOcupacao;
+	}
+	
+	public String getHoraSaida() {
+		return horaSaida;
+	}
+	public void setHoraSaida(String horaSaida) {
+		this.horaSaida = horaSaida;
 	}
 	
 	public Hospede getHospede() {

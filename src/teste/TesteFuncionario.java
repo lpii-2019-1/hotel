@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import dao.FuncionarioDAO;
 import model.Funcionario;
+import model.Hospede;
 
 public class TesteFuncionario {
 	public static void main(String[] args) {
@@ -40,9 +41,14 @@ public class TesteFuncionario {
 			s1.nextLine();
 			System.out.println("Digite a Data de Admissao");
 			f1.setDataAdmissao(s1.nextLine());
-			funcionarioDAO.inserir(f1);
-			
-			System.out.println("FIM");
+			Funcionario funcionarioPesquisado = funcionarioDAO.pesquisaCpfFuncionario(f1.getCpf());
+	        if (funcionarioPesquisado.getIdFuncionario() == 0) {
+	        	funcionarioDAO.inserir(f1);
+				System.out.println("\n FUNCIONARIO CADASTRADO COM SUCESSO");
+	        }
+	        else{
+				System.out.println("\n FUNCIONARIO JÁ CADASTRADO");
+	        }
 		}
 		
 		if(opcao == 2){
@@ -56,17 +62,18 @@ public class TesteFuncionario {
 			if(buscar == 1){
 				System.out.println("Digite o nome do funcionario que deseja buscar");
 				String nome = s1.nextLine();
-				Funcionario funcionarioPesquisado = funcionarioDAO.pesquisaNomeFuncionario(nome);
-		        if (funcionarioPesquisado.getIdFuncionario() != 0) {
-		            System.out.println("idFuncionario: " +funcionarioPesquisado.getIdFuncionario());
-		            System.out.println("Nome: " +funcionarioPesquisado.getNome());
-		            System.out.println("CPF: " +funcionarioPesquisado.getCpf());
-		            System.out.println("Telefone: " +funcionarioPesquisado.getTelefone());
-		            System.out.println("Endereco: " +funcionarioPesquisado.getEndereco());
-		            System.out.println("Email: " +funcionarioPesquisado.getEmail());
-		            System.out.println("Cargo: " +funcionarioPesquisado.getCargo());
-		            System.out.println("Salario: " +funcionarioPesquisado.getSalario());
-		            System.out.println("Data de Admissao: " +funcionarioPesquisado.getDataAdmissao());  
+				ArrayList<Funcionario> funcionarioPesquisado = funcionarioDAO.pesquisaNomeFuncionario(nome);
+		        for (Funcionario f: funcionarioPesquisado) {
+		            System.out.println("idFuncionario: " +f.getIdFuncionario());
+		            System.out.println("Nome: " +f.getNome());
+		            System.out.println("CPF: " +f.getCpf());
+		            System.out.println("Telefone: " +f.getTelefone());
+		            System.out.println("Endereco: " +f.getEndereco());
+		            System.out.println("Email: " +f.getEmail());
+		            System.out.println("Cargo: " +f.getCargo());
+		            System.out.println("Salario: " +f.getSalario());
+		            System.out.println("Data de Admissao: " +f.getDataAdmissao()); 
+			        System.out.println("********************************");
 		        }
 			}	
 			if(buscar == 2){
@@ -84,7 +91,11 @@ public class TesteFuncionario {
 		            System.out.println("Salario: " +funcionarioPesquisado.getSalario());
 		            System.out.println("Data de Admissao: " +funcionarioPesquisado.getDataAdmissao()); 
 		        }
+		        else{
+					System.out.println("\n FUNCIONARIO NÃO ENCONTRADO");
+		        }
 			}  
+		
 			
 			if(buscar == 3){
 				System.out.println("Digite o cargo que deseja buscar");
@@ -104,7 +115,7 @@ public class TesteFuncionario {
 		        }
 			}
 		}
-			
+
 		if(opcao == 3){
 			System.out.println("Qual registro será alterado?");
 			System.out.println("1 - Nome");
@@ -124,9 +135,14 @@ public class TesteFuncionario {
 				f1.setNome(s1.nextLine());
 				System.out.println("CPF do Funcionario: ");
 				f1.setCpf(s1.nextLine());
-			
-				funcionarioDAO.editarNome(f1);
-				System.out.println("FIM");
+				Funcionario funcionarioPesquisado = funcionarioDAO.pesquisaCpfFuncionario(f1.getCpf());
+				if (funcionarioPesquisado.getIdFuncionario() == 0) {
+					funcionarioDAO.editarNome(f1);
+					System.out.println("\n FUNCIONARIO EDITADO COM SUCESSO");
+		        }
+		        else{
+					System.out.println("\n FUNCIONARIO NÃO ENCONTRADO");
+		        }
 			}
 			if(editar == 2){
 				Funcionario f1 = new Funcionario();
@@ -135,16 +151,39 @@ public class TesteFuncionario {
 				System.out.println("Nome do Funcionario:");
 				f1.setNome(s1.nextLine());
 				funcionarioDAO.editarCpf(f1);
-				System.out.println("FIM");
+				ArrayList<Funcionario> funcionarioPesquisado = funcionarioDAO.pesquisaNomeFuncionario(f1.getNome());
+		        for (Funcionario f: funcionarioPesquisado) {
+		            System.out.println("idFuncionario: " +f.getIdFuncionario());
+		            System.out.println("Nome: " +f.getNome());
+		            System.out.println("CPF: " +f.getCpf());
+		            System.out.println("Telefone: " +f.getTelefone());
+		            System.out.println("Endereco: " +f.getEndereco());
+		            System.out.println("Email: " +f.getEmail());
+		            System.out.println("Cargo: " +f.getCargo());
+		            System.out.println("Salario: " +f.getSalario());
+		            System.out.println("Data de Admissao: " +f.getDataAdmissao()); 
+			        System.out.println("********************************");
+		        }
+		        System.out.println("ID Do Funcionario Que Deseja Realizar a Alteração:");
+				f1.setIdFuncionario(s1.nextInt());
+				funcionarioDAO.editarCpf(f1);
+				System.out.println("\n FUNCIONARIO EDITADO COM SUCESSO");
 			}
+			
 			if(editar == 3){
 				Funcionario f1 = new Funcionario();
 				System.out.println("Novo Telefone:");
 				f1.setTelefone(s1.nextLine());
 				System.out.println("CPF do Funcionario:");
 				f1.setCpf(s1.nextLine());
-				funcionarioDAO.editarTelefone(f1);
-				System.out.println("FIM");
+				Funcionario funcionarioPesquisado = funcionarioDAO.pesquisaCpfFuncionario(f1.getCpf());
+				if (funcionarioPesquisado.getIdFuncionario() == 0) {
+					funcionarioDAO.editarTelefone(f1);
+					System.out.println("\n FUNCIONARIO EDITADO COM SUCESSO");
+		        }
+		        else{
+					System.out.println("\n FUNCIONARIO NÃO ENCONTRADO");
+		        }			
 			}
 			if(editar == 4){
 				Funcionario f1 = new Funcionario();
@@ -152,8 +191,14 @@ public class TesteFuncionario {
 				f1.setEndereco(s1.nextLine());
 				System.out.println("CPF do Funcionario:");
 				f1.setCpf(s1.nextLine());
-				funcionarioDAO.editarEndereco(f1);
-				System.out.println("FIM");
+				Funcionario funcionarioPesquisado = funcionarioDAO.pesquisaCpfFuncionario(f1.getCpf());
+				if (funcionarioPesquisado.getIdFuncionario() == 0) {
+					funcionarioDAO.editarEndereco(f1);
+					System.out.println("\n FUNCIONARIO EDITADO COM SUCESSO");
+		        }
+		        else{
+					System.out.println("\n FUNCIONARIO NÃO ENCONTRADO");
+		        }			
 			}
 			if(editar == 5){
 				Funcionario f1 = new Funcionario();
@@ -161,8 +206,14 @@ public class TesteFuncionario {
 				f1.setEmail(s1.nextLine());
 				System.out.println("CPF do Funcionario:");
 				f1.setCpf(s1.nextLine());
-				funcionarioDAO.editarEmail(f1);
-				System.out.println("FIM");
+				Funcionario funcionarioPesquisado = funcionarioDAO.pesquisaCpfFuncionario(f1.getCpf());
+				if (funcionarioPesquisado.getIdFuncionario() == 0) {
+					funcionarioDAO.editarEmail(f1);
+					System.out.println("\n FUNCIONARIO EDITADO COM SUCESSO");
+		        }
+		        else{
+					System.out.println("\n FUNCIONARIO NÃO ENCONTRADO");
+		        }			
 			}
 			if(editar == 6){
 				Funcionario f1 = new Funcionario();
@@ -170,8 +221,14 @@ public class TesteFuncionario {
 				f1.setCargo(s1.nextLine());
 				System.out.println("CPF do Funcionario:");
 				f1.setCpf(s1.nextLine());
-				funcionarioDAO.editarCargo(f1);
-				System.out.println("FIM");
+				Funcionario funcionarioPesquisado = funcionarioDAO.pesquisaCpfFuncionario(f1.getCpf());
+				if (funcionarioPesquisado.getIdFuncionario() == 0) {
+					funcionarioDAO.editarCargo(f1);
+					System.out.println("\n FUNCIONARIO EDITADO COM SUCESSO");
+		        }
+		        else{
+					System.out.println("\n FUNCIONARIO NÃO ENCONTRADO");
+		        }			
 			}
 			if(editar == 7){
 				Funcionario f1 = new Funcionario();
@@ -180,8 +237,14 @@ public class TesteFuncionario {
 				s1.nextLine();
 				System.out.println("CPF do Funcionario:");
 				f1.setCpf(s1.nextLine());
-				funcionarioDAO.editarSalario(f1);
-				System.out.println("FIM");
+				Funcionario funcionarioPesquisado = funcionarioDAO.pesquisaCpfFuncionario(f1.getCpf());
+				if (funcionarioPesquisado.getIdFuncionario() == 0) {
+					funcionarioDAO.editarSalario(f1);
+					System.out.println("\n FUNCIONARIO EDITADO COM SUCESSO");
+		        }
+		        else{
+					System.out.println("\n FUNCIONARIO NÃO ENCONTRADO");
+		        }			
 			}
 			if(editar == 8){
 				Funcionario f1 = new Funcionario();
@@ -189,8 +252,14 @@ public class TesteFuncionario {
 				f1.setDataAdmissao(s1.nextLine());
 				System.out.println("CPF do Funcionario:");
 				f1.setCpf(s1.nextLine());
-				funcionarioDAO.editarDataCadastro(f1);
-				System.out.println("FIM");
+				Funcionario funcionarioPesquisado = funcionarioDAO.pesquisaCpfFuncionario(f1.getCpf());
+				if (funcionarioPesquisado.getIdFuncionario() == 0) {
+					funcionarioDAO.editarDataAdmissao(f1);
+					System.out.println("\n FUNCIONARIO EDITADO COM SUCESSO");
+		        }
+		        else{
+					System.out.println("\n FUNCIONARIO NÃO ENCONTRADO");
+		        }			
 			}
 		}
 		
@@ -201,10 +270,15 @@ public class TesteFuncionario {
 			f1.setNome(s1.nextLine());
 			System.out.println("CPF:");
 			f1.setCpf(s1.nextLine());
-			funcionarioDAO.excluir(f1);
-			System.out.println("FIM");
+			Funcionario funcionarioPesquisado = funcionarioDAO.pesquisaCpfFuncionario(f1.getCpf());
+			if (funcionarioPesquisado.getIdFuncionario() == 0) {
+				funcionarioDAO.excluir(f1);
+				System.out.println("\n FUNCIONARIO EXCLUIDO COM SUCESSO");
+	        }
+	        else{
+				System.out.println("\n FUNCIONARIO NÃO ENCONTRADO");
+	        }		
 		}
-		
 		
 		
 		if(opcao == 5){

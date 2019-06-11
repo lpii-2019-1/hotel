@@ -1,12 +1,14 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Quarto {
 	int idQuarto;
 	int numeroQuarto;
 	String descricao;
 	double valor;
 	int ocupacaoQuarto;
-	
+	private ArrayList<Reserva> reservas;
 
 	public int getIdQuarto() {
 		return idQuarto;
@@ -40,5 +42,11 @@ public class Quarto {
 	}
 	public void setOcupacaoQuarto(int ocupacaoQuarto) {
 		this.ocupacaoQuarto = ocupacaoQuarto;
+	}
+	public ArrayList<Reserva> getReservas() {
+		return reservas;
+	}
+	public void setReservas(ArrayList<Reserva> reservas) {
+		this.reservas = reservas;
 	}
 }

@@ -122,7 +122,7 @@ public class TesteQuarto {
 				System.out.println("idQuarto:");
 				q1.setIdQuarto(s1.nextInt());
 				quartoDAO.editarNumero(q1);
-				System.out.println("FIM");
+				System.out.println("\n QUARTO EDITADO COM SUCESSO");
 			}
 			if(editar == 2){
 				Quarto q1 = new Quarto();

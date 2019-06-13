@@ -35,6 +35,7 @@ public class TesteHospede {
 			h1.setEmail(s1.nextLine());
 			System.out.println("Data de Cadastro");
 			h1.setDataCadastro(s1.nextLine());			
+			
 			Hospede hospedePesquisado = hospedeDAO.pesquisaCpfHospede(h1.getCpf());
 	        if (hospedePesquisado.getIdHospede() == 0) {
 				hospedeDAO.inserir(h1);
@@ -49,6 +50,8 @@ public class TesteHospede {
 			System.out.println("Qual registro deseja buscar?");
 			System.out.println("1 - Nome do Hospede");
 			System.out.println("2 - CPF do Hospede");
+			System.out.println("3 - Data de Cadastro");
+
 			int buscar = s1.nextInt();
 			s1.nextLine();
 			if(buscar == 1){
@@ -66,7 +69,6 @@ public class TesteHospede {
 		            System.out.println("********************************");
 		        }   
 			}
-			
 			if(buscar == 2){
 				System.out.println("Digite o cpf do hospede que deseja buscar");
 				String cpf = s1.nextLine();
@@ -84,6 +86,21 @@ public class TesteHospede {
 		        else{
 					System.out.println("\n HOSPEDE NÃO ENCONTRADO");
 		        }
+			}
+			if(buscar == 3){
+				System.out.println("Digite a data de cadastro que deseja buscar");
+				String data = s1.nextLine();
+				ArrayList<Hospede> hospedePesquisado = hospedeDAO.pesquisaDataCadastro(data);
+				for (Hospede h: hospedePesquisado) {
+		            System.out.println("idHospede: " +h.getIdHospede());
+		            System.out.println("Nome: " +h.getNome());
+		            System.out.println("CPF: " +h.getCpf());
+		            System.out.println("Telefone: " +h.getTelefone());
+		            System.out.println("Endereco: " +h.getEndereco());
+		            System.out.println("Email: " +h.getEmail());
+		            System.out.println("Data de Cadastro: " +h.getDataCadastro());
+		            System.out.println("********************************");
+		        }   
 			}
 		}
 		

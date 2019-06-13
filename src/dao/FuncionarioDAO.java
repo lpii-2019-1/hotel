@@ -114,6 +114,33 @@ public class FuncionarioDAO {
             throw new RuntimeException(e);
         }
     }
+    
+    public ArrayList<Funcionario>pesquisaDataAdmissao(String data) {
+        String sql = "SELECT * FROM funcionario WHERE dataAdmissao = ?";
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, data);
+            ResultSet rs = stmt.executeQuery();
+            ArrayList<Funcionario> datasAdmissao = new ArrayList<Funcionario>();
+            while (rs.next()) {
+                Funcionario funcionario = new Funcionario();
+            	funcionario.setIdFuncionario(rs.getInt("idFuncionario"));
+            	funcionario.setNome(rs.getString("nome"));
+            	funcionario.setCpf(rs.getString("cpf"));
+            	funcionario.setTelefone(rs.getString("telefone"));
+            	funcionario.setEndereco(rs.getString("endereco"));
+            	funcionario.setEmail(rs.getString("email"));
+            	funcionario.setCargo(rs.getString("cargo"));
+            	funcionario.setSalario(rs.getDouble("salario"));
+            	funcionario.setDataAdmissao(rs.getString("dataAdmissao"));
+            	datasAdmissao.add(funcionario);
+            }
+            stmt.close();
+            return datasAdmissao;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
   
     public Funcionario pesquisaIdFuncionario(int idFuncionario) {
         String sql = "SELECT * FROM funcionario WHERE idFuncionario = ?";

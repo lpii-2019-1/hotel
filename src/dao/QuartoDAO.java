@@ -52,6 +52,28 @@ public class QuartoDAO {
         }
     }
    
+    public Quarto pesquisaIdQuarto(int idQuarto) {
+        String sql = "SELECT * FROM quarto WHERE idQuarto = ?";
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, idQuarto);
+            ResultSet rs = stmt.executeQuery();
+            Quarto quarto = new Quarto();
+            if (rs.next()) {
+            	quarto.setIdQuarto(rs.getInt("idQuarto"));
+            	quarto.setNumeroQuarto(rs.getInt("numeroQuarto"));
+            	quarto.setDescricao(rs.getString("descricao"));
+            	quarto.setValor(rs.getDouble("valor"));
+                quarto.setOcupacaoQuarto((rs.getInt("OcupacaoQuarto")));
+            }
+            stmt.close();
+            return quarto;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    
     public  ArrayList<Quarto>pesquisaOcupacaoQuarto(int ocupacaoQuarto) {
         String sql = "SELECT * FROM quarto WHERE ocupacaoQuarto = ?";
         try {

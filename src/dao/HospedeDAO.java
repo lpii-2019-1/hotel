@@ -82,6 +82,32 @@ public class HospedeDAO {
         }
     }
     
+    public ArrayList<Hospede>pesquisaDataCadastro(String data) {
+        String sql = "SELECT * FROM hospede WHERE dataCadastro = ?";
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, data);
+            ResultSet rs = stmt.executeQuery();
+            ArrayList<Hospede> datasCadastro = new ArrayList<Hospede>();
+            while (rs.next()) {
+                Hospede hospede = new Hospede();
+            	hospede.setIdHospede(rs.getInt("idHospede"));
+            	hospede.setNome(rs.getString("nome"));
+            	hospede.setCpf(rs.getString("cpf"));
+            	hospede.setTelefone(rs.getString("telefone"));
+            	hospede.setEndereco(rs.getString("endereco"));
+            	hospede.setEmail(rs.getString("email"));
+            	hospede.setDataCadastro(rs.getString("dataCadastro"));
+            	datasCadastro.add(hospede);
+            }
+            stmt.close();
+            return datasCadastro;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    
     public Hospede pesquisaIdHospede(int idHospede) {
         String sql = "SELECT * FROM hospede WHERE idHospede = ?";
         try {

@@ -56,6 +56,8 @@ public class TesteFuncionario {
 			System.out.println("1 - Nome do Funcionario");
 			System.out.println("2 - CPF do Funcionario");
 			System.out.println("3 - Cargo");
+			System.out.println("4 - Data de Admissao");
+
 
 			int buscar = s1.nextInt();
 			s1.nextLine();
@@ -101,6 +103,24 @@ public class TesteFuncionario {
 				System.out.println("Digite o cargo que deseja buscar");
 				String cargo = s1.nextLine();
 				ArrayList<Funcionario> funcionarioPesquisado = funcionarioDAO.pesquisaCargo(cargo);
+		        for (Funcionario f: funcionarioPesquisado) {
+		            System.out.println("idFuncionario: " +f.getIdFuncionario());
+		            System.out.println("Nome: " +f.getNome());
+		            System.out.println("CPF: " +f.getCpf());
+		            System.out.println("Telefone: " +f.getTelefone());
+		            System.out.println("Endereco: " +f.getEndereco());
+		            System.out.println("Email: " +f.getEmail());
+		            System.out.println("Cargo: " +f.getCargo());
+		            System.out.println("Salario: " +f.getSalario());
+		            System.out.println("Data de Admissao: " +f.getDataAdmissao());
+				    System.out.println("********************************");
+		        }
+			}
+			
+			if(buscar == 4){
+				System.out.println("Digite a data de admissao que deseja buscar");
+				String data = s1.nextLine();
+				ArrayList<Funcionario> funcionarioPesquisado = funcionarioDAO.pesquisaDataAdmissao(data);
 		        for (Funcionario f: funcionarioPesquisado) {
 		            System.out.println("idFuncionario: " +f.getIdFuncionario());
 		            System.out.println("Nome: " +f.getNome());
